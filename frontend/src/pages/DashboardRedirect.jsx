@@ -7,7 +7,7 @@ const DashboardRedirect = () => {
 
   useEffect(() => {
     // Redirect to Streamlit app with user ID
-    const streamlitURL = `https://ovasense.streamlit.app?uid=${uid}`;
+    const streamlitURL = `http://localhost:8501/`;
     window.location.href = streamlitURL;
   }, [uid]);
 

@@ -106,7 +106,15 @@ const Navbar = () => {
               </button>
             )}
 
-            <button
+            
+
+          
+
+            {/* Profile Section - Only show when user is logged in */}
+            {user && (
+              <div className="relative ml-4 flex">
+
+                <button
               onClick={() => navigate('/consultation')}
               className={`relative px-5 py-3 rounded-2xl font-semibold transition-all duration-300 group overflow-hidden ${
                 isActive('/consultation')
@@ -142,9 +150,6 @@ const Navbar = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
 
-            {/* Profile Section - Only show when user is logged in */}
-            {user && (
-              <div className="relative ml-4">
                 <button
                   onClick={() => setShowProfileDropdown(!showProfileDropdown)}
                   className="flex items-center space-x-3 p-2 rounded-2xl bg-white/70 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 text-slate-700 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg group"

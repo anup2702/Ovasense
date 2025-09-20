@@ -222,7 +222,7 @@ if st.sidebar.button("🔮 Predict Fertile Window"):
 
     # Teleconsultation
     st.subheader("👩‍⚕️ Need Expert Help?")
-    st.markdown("[Book a Teleconsultation](https://meet.google.com/)")
+    st.markdown("[Book a Teleconsultation](http://localhost:5173/consultation)")
 else:
     st.info("👉 Enter your cycle details and click **Predict Fertile Window** to get started.")
 
