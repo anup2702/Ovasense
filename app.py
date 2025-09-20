@@ -78,7 +78,7 @@ st.write("Track your cycle, upload wearable data, and get personalized fertility
 st.sidebar.header("Manual Input")
 start_date = st.sidebar.date_input("Menstrual Cycle Start Date", datetime.date.today())
 cycle_length = st.sidebar.number_input("Average Cycle Length (days)", min_value=20, max_value=40, value=28)
-uploaded_file = st.sidebar.file_uploader("📤 Upload Wearable Data (CSV/JSON)", type=["csv", "json"])
+uploaded_file = st.sidebar.file_uploader("Upload Wearable Data (CSV/JSON)", type=["csv", "json"])
 
 # Lifestyle inputs
 stress_level = st.sidebar.slider("Stress Level (1 = low, 10 = high)", 1, 10, 5)
@@ -118,14 +118,14 @@ if uploaded_file:
         st.sidebar.error(f"Error reading wearable data: {e}")
 
     if wearable_df is not None:
-        st.subheader("📊 Wearable Data Preview")
+        st.subheader("Wearable Data Preview")
         st.dataframe(wearable_df.head())
 
 # ------------------------------
 # Run Prediction
 # ------------------------------
 fertile_start, fertile_end, ovulation = None, None, None
-if st.sidebar.button("🔮 Predict Fertile Window"):
+if st.sidebar.button("Predict Fertile Window"):
     fertile_start, fertile_end, ovulation = predict_fertility(start_date, cycle_length, wearable_df)
 
     # Fertile window box
@@ -139,7 +139,7 @@ if st.sidebar.button("🔮 Predict Fertile Window"):
         color: #6a1b4d;
         font-weight: 600;
     '>
-        🌸 <b>Predicted Fertile Window:</b> {fertile_start.strftime('%d %b')} - {fertile_end.strftime('%d %b')}
+        <b>Predicted Fertile Window:</b> {fertile_start.strftime('%d %b')} - {fertile_end.strftime('%d %b')}
     </div>
     """, unsafe_allow_html=True)
 
@@ -153,7 +153,7 @@ if st.sidebar.button("🔮 Predict Fertile Window"):
         color: #6a1b4d;
         font-weight: 600;
     '>
-        ❤️ <b>Predicted Ovulation Day:</b> {ovulation.strftime('%d %b')}
+        <b>Predicted Ovulation Day:</b> {ovulation.strftime('%d %b')}
     </div>
     """, unsafe_allow_html=True)
 
@@ -175,9 +175,9 @@ if st.sidebar.button("🔮 Predict Fertile Window"):
             else:
                 date_obj = datetime.date(year, month, day)
                 if fertile_start and date_obj == ovulation_day:
-                    html += f"<td class='ovulation'><b>{day}</b><br>❤️ Ovulation</td>"
+                    html += f"<td class='ovulation'><b>{day}</b><br>Ovulation</td>"
                 elif fertile_start and date_obj in fertile_days:
-                    html += f"<td class='fertile'><b>{day}</b><br>🩷 Fertile</td>"
+                    html += f"<td class='fertile'><b>{day}</b><br>Fertile</td>"
                 else:
                     html += f"<td><b>{day}</b></td>"
         html += "</tr>"
@@ -186,53 +186,53 @@ if st.sidebar.button("🔮 Predict Fertile Window"):
 
     # Wearable Trends
     if wearable_df is not None:
-        st.subheader("📈 Wearable Trends")
+        st.subheader("Wearable Trends")
         for col in wearable_df.columns:
             if col.lower() != "date":
                 st.line_chart(wearable_df[col])
 
     # Personalized Recommendations
-    st.subheader("💡 Personalized Recommendations")
+    st.subheader("Personalized Recommendations")
     if wearable_df is not None and "Sleep" in wearable_df.columns:
         avg_sleep = wearable_df["Sleep"].mean()
-        if avg_sleep < 6: st.warning("⏰ Your average sleep is below 6 hours — aim for 7-9 hours.")
-        elif avg_sleep < 7: st.info("👍 Sleep is slightly below optimal.")
-        else: st.success("😴 Great sleep habits!")
+        if avg_sleep < 6: st.warning("Your average sleep is below 6 hours — aim for 7-9 hours.")
+        elif avg_sleep < 7: st.info("Sleep is slightly below optimal.")
+        else: st.success("Great sleep habits!")
 
     if wearable_df is not None and "Steps" in wearable_df.columns:
         avg_steps = wearable_df["Steps"].mean()
-        if avg_steps < 3000: st.warning("🚶‍♀️ Low daily activity detected (<3000 steps).")
-        elif avg_steps < 7000: st.info("🏃‍♀️ Moderate activity level.")
-        else: st.success("💪 Excellent activity levels!")
+        if avg_steps < 3000: st.warning("Low daily activity detected (<3000 steps).")
+        elif avg_steps < 7000: st.info("Moderate activity level.")
+        else: st.success("Excellent activity levels!")
 
-    if stress_level >= 8: st.warning("😣 High stress levels can affect your cycle. Try relaxation techniques.")
-    elif stress_level >= 5: st.info("🙂 Moderate stress levels. Manage stress for better health.")
-    else: st.success("😊 Low stress levels — great!")
+    if stress_level >= 8: st.warning("High stress levels can affect your cycle. Try relaxation techniques.")
+    elif stress_level >= 5: st.info("Moderate stress levels. Manage stress for better health.")
+    else: st.success("Low stress levels — great!")
 
-    if hydration < 6: st.warning("💧 Low water intake. Stay hydrated!")
-    elif hydration < 10: st.info("👍 Decent hydration, but drink more if possible.")
-    else: st.success("💧 Excellent hydration!")
+    if hydration < 6: st.warning("Low water intake. Stay hydrated!")
+    elif hydration < 10: st.info("Decent hydration, but drink more if possible.")
+    else: st.success("Excellent hydration!")
 
-    if nutrition_quality == "Poor": st.warning("🍎 Poor nutrition. Consider a balanced diet.")
-    elif nutrition_quality == "Average": st.info("🍎 Average diet — try adding more nutrients.")
-    else: st.success("🥗 Great nutrition!")
+    if nutrition_quality == "Poor": st.warning("Poor nutrition. Consider a balanced diet.")
+    elif nutrition_quality == "Average": st.info("Average diet — try adding more nutrients.")
+    else: st.success("Great nutrition!")
 
     if (wearable_df is not None and "Sleep" in wearable_df.columns and wearable_df["Sleep"].mean() < 7) and stress_level >= 7:
-        st.error("⚠️ Low sleep combined with high stress can affect your cycle. Prioritize rest and stress reduction.")
+        st.error("Low sleep combined with high stress can affect your cycle. Prioritize rest and stress reduction.")
 
     # Teleconsultation
-    st.subheader("👩‍⚕️ Need Expert Help?")
+    st.subheader("Need Expert Help?")
     st.markdown("[Book a Teleconsultation](http://localhost:5173/consultation)")
 else:
-    st.info("👉 Enter your cycle details and click **Predict Fertile Window** to get started.")
+    st.info("Enter your cycle details and click **Predict Fertile Window** to get started.")
 
 
 # ------------------------------
 # Gemini AI Integration for Personalized Insights
 # ------------------------------
-st.sidebar.header("🤖 AI Insights")
+st.sidebar.header("AI Insights")
 
-if st.sidebar.button("✨ Get AI Insights"):
+if st.sidebar.button("Get AI Insights"):
     with st.spinner("Generating personalized AI insights..."):
         try:
             # Compose prompt for Gemini AI
@@ -258,7 +258,7 @@ You are a fertility health assistant. Given the following data, provide personal
             response = model.generate_content(prompt)
             ai_text = response.text
 
-            st.subheader("🤖 AI-Generated Personalized Insights")
+            st.subheader("AI-Generated Personalized Insights")
             st.markdown(ai_text)
 
         except Exception as e:
@@ -267,7 +267,7 @@ You are a fertility health assistant. Given the following data, provide personal
 # ------------------------------
 # Chatbot Integration
 # ------------------------------
-st.sidebar.header("💬 AI Chatbot")
+st.sidebar.header("AI Chatbot")
 
 # Initialize session state for chat
 if 'chat_messages' not in st.session_state:
@@ -276,13 +276,13 @@ if 'chat_active' not in st.session_state:
     st.session_state.chat_active = False
 
 # Chatbot button
-if st.sidebar.button("🤖 Start Chat", type="primary"):
+if st.sidebar.button("Start Chat", type="primary"):
     st.session_state.chat_active = not st.session_state.chat_active
 
 # Chat interface
 if st.session_state.chat_active:
     st.markdown("---")
-    st.subheader("💬 Fertility Health Assistant")
+    st.subheader("Fertility Health Assistant")
     st.markdown("Ask me anything about fertility, menstrual health, or wellness!")
 
     # Display chat history
@@ -292,7 +292,7 @@ if st.session_state.chat_active:
             if message['role'] == 'user':
                 st.markdown(f"**You:** {message['content']}")
             else:
-                st.markdown(f"**🤖 Assistant:** {message['content']}")
+                st.markdown(f"**Assistant:** {message['content']}")
 
     # Chat input
     user_input = st.text_input("Type your question here...", key="chat_input")
