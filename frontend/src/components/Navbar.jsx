@@ -106,11 +106,26 @@ const Navbar = () => {
               </button>
             )}
 
+            <button
+              onClick={() => navigate('/consultation')}
+              className={`relative px-5 py-3 rounded-2xl font-semibold transition-all duration-300 group overflow-hidden ${
+                isActive('/consultation')
+                  ? 'text-white bg-gradient-to-r from-emerald-500 to-teal-600 shadow-lg shadow-emerald-200/50'
+                  : 'text-slate-700 hover:text-white bg-white/70 hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-600 shadow-md hover:shadow-lg hover:shadow-emerald-200/30'
+              }`}
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Consultation
+              </span>
+              {isActive('/consultation') && (
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl"></div>
+              )}
+            </button>
 
-            {/* Profile Section - Only show when user is logged in */}
-            {user && (
-              <div className="relative ml-4 flex gap-6">
-                <button
+            <button
               onClick={() => navigate('/dashboard')}
               className={`relative px-6 py-3 rounded-2xl font-bold transition-all duration-300 group overflow-hidden ${
                 isActive('/dashboard')
@@ -118,15 +133,18 @@ const Navbar = () => {
                   : 'text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:shadow-xl hover:shadow-indigo-200/30 transform hover:scale-105'
               }`}
             >
-              <span className="h-4 relative z-10 flex items-center gap-2">
-                <svg className="w-4 h-" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="relative z-10 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
                 Dashboard
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
-    
+
+            {/* Profile Section - Only show when user is logged in */}
+            {user && (
+              <div className="relative ml-4">
                 <button
                   onClick={() => setShowProfileDropdown(!showProfileDropdown)}
                   className="flex items-center space-x-3 p-2 rounded-2xl bg-white/70 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-600 text-slate-700 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg group"
@@ -282,6 +300,25 @@ const Navbar = () => {
                   </div>
                 </button>
               )}
+
+              <button
+                onClick={() => {
+                  navigate('/consultation');
+                  setIsMenuOpen(false);
+                }}
+                className={`block w-full text-left px-4 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                  isActive('/consultation')
+                    ? 'text-white bg-gradient-to-r from-emerald-500 to-teal-600 shadow-lg'
+                    : 'text-slate-700 bg-white/70 hover:bg-gradient-to-r hover:from-emerald-500 hover:to-teal-600 hover:text-white hover:shadow-md'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  Consultation
+                </div>
+              </button>
 
               <button
                 onClick={() => {

@@ -5,6 +5,7 @@ import AuthForm from './components/AuthForm';
 import DashboardRedirect from './pages/DashboardRedirect';
 import FirebaseTest from './components/FirebaseTest';
 import Footer from './components/Footer';
+import Consultation from './pages/Consultation';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/auth" element={<AuthForm />} />
           <Route path="/dashboard" element={<DashboardRedirect />} />
+          <Route path="/consultation" element={<Consultation />} />
           <Route path="/test" element={<FirebaseTest />} />
         </Routes>
         <Footer />
