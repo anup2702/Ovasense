@@ -5,8 +5,19 @@ import datetime
 import calendar
 import google.generativeai as genai  # Google Gemini AI SDK
 
+# Import chatbot functionality
+from chatbot import FertilityChatbot, format_user_data_for_chatbot, format_fertile_window_for_chatbot
+
 # Initialize Gemini AI with your API key from Streamlit secrets
-genai.configure(api_key=st.secrets["gemini_api_key"])
+try:
+    genai.configure(api_key=st.secrets["gemini_api_key"])
+    gemini_available = True
+except KeyError:
+    st.error("❌ Gemini API key not found in Streamlit secrets. Please add 'gemini_api_key' to your secrets.toml file.")
+    gemini_available = False
+except Exception as e:
+    st.error(f"❌ Error configuring Gemini AI: {e}")
+    gemini_available = False
 
 # ------------------------------
 # Custom Background & Theme Styling
@@ -205,7 +216,7 @@ if st.sidebar.button("🔮 Predict Fertile Window"):
         table.calendar { width: 100%; border-collapse: collapse; }
         table.calendar th { background: #eee; padding: 8px; }
         table.calendar td {
-            width: 14.28%; height: 80px; vertical-align: top; text-align: left; 
+            width: 14.28%; height: 80px; vertical-align: top; text-align: left;
             padding: 5px; border: 1px solid #ddd; font-size: 14px;
         }
         .fertile { background-color: #ffe0eb; }
@@ -331,3 +342,115 @@ You are a fertility health assistant. Given the following data, provide personal
 
         except Exception as e:
             st.error(f"Error generating AI insights: {e}")
+
+# ------------------------------
+# Chatbot Integration
+# ------------------------------
+st.sidebar.header("💬 AI Chatbot")
+
+# Initialize session state for chat
+if 'chat_messages' not in st.session_state:
+    st.session_state.chat_messages = []
+if 'chat_active' not in st.session_state:
+    st.session_state.chat_active = False
+
+# Chatbot button
+if st.sidebar.button("🤖 Start Chat", type="primary"):
+    st.session_state.chat_active = not st.session_state.chat_active
+
+# Chat interface
+if st.session_state.chat_active:
+    st.markdown("---")
+    st.subheader("💬 Fertility Health Assistant")
+    st.markdown("Ask me anything about fertility, menstrual health, or wellness!")
+
+    # Display chat history
+    chat_container = st.container()
+    with chat_container:
+        for message in st.session_state.chat_messages:
+            if message['role'] == 'user':
+                st.markdown(f"**You:** {message['content']}")
+            else:
+                st.markdown(f"**🤖 Assistant:** {message['content']}")
+
+    # Chat input
+    user_input = st.text_input("Type your question here...", key="chat_input")
+
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("Send", key="send_message"):
+            if user_input.strip():
+                # Add user message to history
+                st.session_state.chat_messages.append({
+                    'role': 'user',
+                    'content': user_input
+                })
+
+                # Prepare context for chatbot
+                user_data = format_user_data_for_chatbot({
+                    'start_date': start_date,
+                    'cycle_length': cycle_length,
+                    'stress_level': stress_level,
+                    'hydration': hydration,
+                    'nutrition_quality': nutrition_quality
+                })
+
+                fertile_window = None
+                if 'fertile_start' in locals():
+                    fertile_window = format_fertile_window_for_chatbot(
+                        fertile_start, fertile_end, ovulation
+                    )
+
+                # Get chatbot response
+                chatbot = FertilityChatbot()
+                bot_response = chatbot.get_response(
+                    user_input,
+                    user_data,
+                    fertile_window,
+                    st.session_state.chat_messages[:-1]  # Exclude the current user message
+                )
+
+                # Add bot response to history
+                st.session_state.chat_messages.append({
+                    'role': 'assistant',
+                    'content': bot_response
+                })
+
+                # Clear input and rerun
+                st.rerun()
+
+    with col2:
+        if st.button("Clear Chat", key="clear_chat"):
+            st.session_state.chat_messages = []
+            st.rerun()
+
+    # Quick action buttons
+    st.markdown("**Quick Questions:**")
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        if st.button("Fertility Tips", key="fertility_tips"):
+            st.session_state.chat_messages.append({
+                'role': 'user',
+                'content': 'What are some tips to improve fertility?'
+            })
+            st.rerun()
+
+    with col2:
+        if st.button("Nutrition Advice", key="nutrition_advice"):
+            st.session_state.chat_messages.append({
+                'role': 'user',
+                'content': 'What should I eat to support my fertility?'
+            })
+            st.rerun()
+
+    with col3:
+        if st.button("Stress Management", key="stress_management"):
+            st.session_state.chat_messages.append({
+                'role': 'user',
+                'content': 'How can I manage stress to improve my fertility?'
+            })
+            st.rerun()
+
+# Add some spacing at the end
+st.markdown("<br><br>", unsafe_allow_html=True)
