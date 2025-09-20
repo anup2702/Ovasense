@@ -322,14 +322,9 @@ You are a fertility health assistant. Given the following data, provide personal
                         wearable_summary += f"- Average {col}: {avg_val:.2f}\n"
                 prompt += "\nWearable data summary:\n" + wearable_summary
 
-            response = genai.chat.completions.create(
-                model="models/chat-bison-002",
-                messages=[
-                    {"author": "user", "content": prompt}
-                ],
-            )
-
-            ai_text = response.choices[0].message.content
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            response = model.generate_content(prompt)
+            ai_text = response.text
 
             st.subheader("🤖 AI-Generated Personalized Insights")
             st.markdown(ai_text)
