@@ -33,14 +33,34 @@ Remember: You are not a substitute for professional medical advice. Always recom
 """
 
     def format_user_data(self, user_data):
-        """Format user data for context in AI prompts."""
+        """Format comprehensive user data for context in AI prompts."""
         formatted = f"""
-User Profile:
-- Menstrual cycle start date: {user_data.get('start_date', 'Not provided')}
+COMPREHENSIVE USER HEALTH PROFILE:
+
+Menstrual Cycle Data:
+- Last period start date: {user_data.get('start_date', 'Not provided')}
 - Average cycle length: {user_data.get('cycle_length', 'Not provided')} days
+- Period duration: {user_data.get('period_duration', 'Not provided')} days
+- Flow intensity: {user_data.get('flow_intensity', 'Not provided')}
+
+Basal Body Temperature (BBT):
+- Current BBT: {user_data.get('current_bbt', 'Not provided')}°F
+- BBT tracking method: {user_data.get('bbt_tracking', 'Not provided')}
+- BBT measurement consistency: {user_data.get('bbt_consistency', 'Not provided')}/10
+
+Lifestyle Habits:
 - Stress level (1-10): {user_data.get('stress_level', 'Not provided')}
 - Daily hydration (cups): {user_data.get('hydration', 'Not provided')}
 - Nutrition quality: {user_data.get('nutrition_quality', 'Not provided')}
+- Average sleep hours: {user_data.get('sleep_hours', 'Not provided')}
+- Exercise frequency: {user_data.get('exercise_frequency', 'Not provided')}
+- Alcohol consumption: {user_data.get('alcohol_consumption', 'Not provided')}
+- Smoking status: {user_data.get('smoking_status', 'Not provided')}
+
+Health & Supplements:
+- Current supplements: {', '.join(user_data.get('supplements', [])) if user_data.get('supplements') else 'None'}
+- Health conditions: {', '.join(user_data.get('health_conditions', [])) if user_data.get('health_conditions') else 'None'}
+- Current medications: {user_data.get('medications', 'None')}
 """
         return formatted.strip()
 
@@ -194,13 +214,25 @@ Response format:
 
 # Utility functions for data formatting
 def format_user_data_for_chatbot(user_data):
-    """Format user data for chatbot context."""
+    """Format comprehensive user data for chatbot context."""
     return {
         'start_date': user_data.get('start_date', 'Not provided'),
         'cycle_length': user_data.get('cycle_length', 'Not provided'),
+        'period_duration': user_data.get('period_duration', 'Not provided'),
+        'flow_intensity': user_data.get('flow_intensity', 'Not provided'),
+        'current_bbt': user_data.get('current_bbt', 'Not provided'),
+        'bbt_tracking': user_data.get('bbt_tracking', 'Not provided'),
+        'bbt_consistency': user_data.get('bbt_consistency', 'Not provided'),
         'stress_level': user_data.get('stress_level', 'Not provided'),
         'hydration': user_data.get('hydration', 'Not provided'),
-        'nutrition_quality': user_data.get('nutrition_quality', 'Not provided')
+        'nutrition_quality': user_data.get('nutrition_quality', 'Not provided'),
+        'sleep_hours': user_data.get('sleep_hours', 'Not provided'),
+        'exercise_frequency': user_data.get('exercise_frequency', 'Not provided'),
+        'alcohol_consumption': user_data.get('alcohol_consumption', 'Not provided'),
+        'smoking_status': user_data.get('smoking_status', 'Not provided'),
+        'supplements': user_data.get('supplements', []),
+        'health_conditions': user_data.get('health_conditions', []),
+        'medications': user_data.get('medications', 'Not provided')
     }
 
 def format_fertile_window_for_chatbot(fertile_start, fertile_end, ovulation):
