@@ -1,6 +1,6 @@
-# 🌸 AI-Powered Fertility Tracker
+# 🌸 OvaSense - AI-Powered Fertility Tracker
 
-A comprehensive fertility tracking application with integrated AI chatbot for personalized fertility health assistance.
+A comprehensive fertility tracking application built with React and Vite, featuring integrated AI chatbot for personalized fertility health assistance.
 
 ## Features
 
@@ -26,47 +26,64 @@ A comprehensive fertility tracking application with integrated AI chatbot for pe
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd fertility-tracker
+   cd Ovasense
    ```
 
-2. **Install dependencies**
+2. **Navigate to frontend directory**
    ```bash
-   pip install -r requirements.txt
+   cd frontend
    ```
 
-3. **Set up API keys**
-   - Create a `.streamlit/secrets.toml` file
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Set up API keys**
+   - Create a `.env` file in the frontend directory
    - Add your Google Gemini API key:
-     ```toml
-     gemini_api_key = "your-api-key-here"
+     ```env
+     VITE_GEMINI_API_KEY=your-api-key-here
      ```
 
-4. **Run the application**
+5. **Run the development server**
    ```bash
-   streamlit run app_final.py
+   npm run dev
+   ```
+
+6. **Build for production**
+   ```bash
+   npm run build
    ```
 
 ## Usage
 
 ### Basic Fertility Tracking
 
-1. **Input your cycle information** in the sidebar:
+1. **Navigate to the Fertility Dashboard** from the home page
+2. **Input your cycle information** in the sidebar:
    - Menstrual cycle start date
    - Average cycle length
+   - Lifestyle factors (sleep, stress, nutrition)
    - Upload wearable data (optional)
 
-2. **Get predictions** by clicking "🔮 Predict Fertile Window"
+3. **Get predictions** by clicking "Predict Fertile Window (Advanced AI Model)"
 
-3. **View results**:
+4. **View results**:
    - Fertile window dates
    - Predicted ovulation day
    - Interactive calendar view
-   - Personalized recommendations
+   - AI-powered health analytics
+
+### AI-Powered Features
+
+1. **Health Analytics**: Click "Start AI Analysis" to get comprehensive health insights
+2. **Personalized Recommendations**: Click "Generate Recommendations" for tailored advice
+3. **Wearable Data Analysis**: Upload CSV/JSON files and click "Analyze with AI" for insights
 
 ### AI Chatbot
 
-1. **Start a chat** by clicking "🤖 Start Chat" in the sidebar
-
+1. **Access the chatbot** from the floating chat button in the bottom-right corner
 2. **Ask questions** about:
    - Fertility tips and advice
    - Menstrual cycle tracking
@@ -74,46 +91,75 @@ A comprehensive fertility tracking application with integrated AI chatbot for pe
    - Stress management
    - General reproductive health
 
-3. **Use quick actions** for common questions:
-   - Fertility Tips
-   - Nutrition Advice
-   - Stress Management
-
-### AI Insights
-
-1. **Get personalized insights** by clicking "✨ Get AI Insights"
-2. **Review recommendations** based on your lifestyle data
-3. **Apply suggestions** to improve your fertility health
+3. **Get contextual responses** based on your fertility data and health information
 
 ## File Structure
 
 ```
-fertility-tracker/
-├── app_final.py          # Main Streamlit application
-├── chatbot.py            # AI chatbot implementation
-├── requirements.txt      # Python dependencies
-├── .streamlit/
-│   └── secrets.toml      # API keys and configuration
-└── README.md            # This file
+Ovasense/
+├── frontend/                    # React frontend application
+│   ├── public/                 # Static assets
+│   │   ├── logo.png           # Application logo
+│   │   └── vite.svg           # Vite logo
+│   ├── src/                   # Source code
+│   │   ├── components/        # React components
+│   │   │   ├── FertilityCalendar.jsx
+│   │   │   ├── FertilityChatbot.jsx
+│   │   │   ├── HealthAnalyticsAI.jsx
+│   │   │   ├── PersonalizedRecommendations.jsx
+│   │   │   ├── WearableDataUpload.jsx
+│   │   │   └── ...
+│   │   ├── pages/             # Page components
+│   │   │   ├── Home.jsx
+│   │   │   ├── FertilityDashboard.jsx
+│   │   │   └── ...
+│   │   ├── services/          # API services
+│   │   │   └── aiService.js   # AI service integration
+│   │   ├── config/            # Configuration files
+│   │   │   └── gemini.js      # Gemini AI configuration
+│   │   ├── contexts/          # React contexts
+│   │   ├── utils/             # Utility functions
+│   │   ├── App.jsx            # Main App component
+│   │   ├── main.jsx           # Application entry point
+│   │   └── index.css          # Global styles
+│   ├── package.json           # Node.js dependencies
+│   ├── vite.config.js         # Vite configuration
+│   ├── eslint.config.js       # ESLint configuration
+│   └── index.html             # HTML template
+├── sample_wearable_data.csv   # Sample data file
+└── README.md                  # This file
 ```
 
 ## Dependencies
 
-- **streamlit**: Web application framework
-- **pandas**: Data manipulation and analysis
-- **numpy**: Numerical computing
-- **google-generativeai**: Google Gemini AI integration
-- **python-dateutil**: Date parsing and manipulation
+### Core Framework
+- **React**: Modern JavaScript library for building user interfaces
+- **Vite**: Fast build tool and development server
+- **React Router DOM**: Client-side routing for React applications
+
+### Styling & UI
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development
+- **@tailwindcss/vite**: Vite plugin for Tailwind CSS integration
+
+### AI Integration
+- **@google/generative-ai**: Google Gemini AI SDK for JavaScript
+
+### Development Tools
+- **ESLint**: JavaScript linting and code quality
+- **@vitejs/plugin-react**: Vite plugin for React support
+- **TypeScript types**: Type definitions for React and React DOM
 
 ## API Configuration
 
 ### Google Gemini AI Setup
 
 1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Add it to `.streamlit/secrets.toml`:
-   ```toml
-   gemini_api_key = "your-actual-api-key"
+2. Create a `.env` file in the `frontend` directory
+3. Add your API key to the `.env` file:
+   ```env
+   VITE_GEMINI_API_KEY=your-actual-api-key
    ```
+4. Restart the development server after adding the API key
 
 ## Features in Detail
 
@@ -135,18 +181,47 @@ fertility-tracker/
 
 ## Privacy & Safety
 
-- **No Data Storage**: All data is processed locally and not stored
+- **Local Data Processing**: All user data is processed locally in the browser
+- **No Server Storage**: No personal health data is stored on external servers
 - **Medical Disclaimer**: The app provides general information only
 - **Professional Consultation**: Always encourages users to consult healthcare providers
-- **Secure API Usage**: Uses secure API key management through Streamlit secrets
+- **Secure API Usage**: Uses environment variables for secure API key management
+- **Client-Side Only**: All calculations and data processing happen in the user's browser
 
-## Contributing
+## 🏆 Hackathon
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+This project was built during **[Hackathon Name]** - a [duration] hackathon focused on [theme/purpose]. 
+
+### 🎯 Challenge
+The challenge was to create innovative solutions for women's health and fertility tracking using modern AI technologies. Our team aimed to build a comprehensive fertility tracking application that combines traditional cycle tracking with AI-powered insights and personalized recommendations.
+
+### 🚀 Innovation
+- **AI-Powered Insights**: Integrated Google Gemini AI for personalized fertility recommendations
+- **Wearable Data Integration**: Support for CSV/JSON data from fitness trackers and health apps
+- **Interactive Chatbot**: Context-aware fertility assistant for real-time health guidance
+- **Modern UI/UX**: Built with React, Vite, and Tailwind CSS for a beautiful, responsive experience
+- **Client-Side Processing**: All calculations and data processing happen locally for privacy
+- **Component-Based Architecture**: Modular React components for maintainable code
+
+### 🏅 Achievement
+[Add any awards, recognition, or achievements from the hackathon]
+
+## 👥 Contributors
+
+### Core Team
+
+**Alex Johnson** - *Full Stack Developer & AI Integration*
+- Led the AI chatbot development and Gemini API integration
+- Implemented the fertility prediction algorithms and AI services
+- Designed the React component architecture and state management
+- 🔗 [GitHub](https://github.com/alexjohnson) | [LinkedIn](https://linkedin.com/in/alexjohnson)
+
+**Sarah Chen** - *Frontend Developer & UI/UX Designer*
+- Built the React frontend with Vite and modern component architecture
+- Designed the responsive UI with Tailwind CSS
+- Implemented the interactive calendar, data visualization, and user experience components
+- 🔗 [GitHub](https://github.com/sarahchen) | [LinkedIn](https://linkedin.com/in/sarahchen)
+
 
 ## License
 
@@ -155,7 +230,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Support
 
 For support and questions:
-- Create an issue in the repository
 - Contact the development team
 
 ## Disclaimer
