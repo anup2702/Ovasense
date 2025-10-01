@@ -190,7 +190,7 @@ Ovasense/
 
 ## 🏆 Hackathon
 
-This project was built during **[Hackathon Name]** - a [duration] hackathon focused on [theme/purpose]. 
+This project was built during **HackOasis 2.0** - a 6 hrs hackathon focused on HealthTech. 
 
 ### 🎯 Challenge
 The challenge was to create innovative solutions for women's health and fertility tracking using modern AI technologies. Our team aimed to build a comprehensive fertility tracking application that combines traditional cycle tracking with AI-powered insights and personalized recommendations.
@@ -203,24 +203,20 @@ The challenge was to create innovative solutions for women's health and fertilit
 - **Client-Side Processing**: All calculations and data processing happen locally for privacy
 - **Component-Based Architecture**: Modular React components for maintainable code
 
-### 🏅 Achievement
-[Add any awards, recognition, or achievements from the hackathon]
-
 ## 👥 Contributors
 
-### Core Team
-
-**Alex Johnson** - *Full Stack Developer & AI Integration*
-- Led the AI chatbot development and Gemini API integration
+**Anup Kumar** - *Full Stack Developer & UI/UX Designer*
 - Implemented the fertility prediction algorithms and AI services
 - Designed the React component architecture and state management
-- 🔗 [GitHub](https://github.com/alexjohnson) | [LinkedIn](https://linkedin.com/in/alexjohnson)
-
-**Sarah Chen** - *Frontend Developer & UI/UX Designer*
 - Built the React frontend with Vite and modern component architecture
 - Designed the responsive UI with Tailwind CSS
+- 🔗 [GitHub](https://github.com/anup2702) | [LinkedIn](https://linkedin.com/in/anup001)
+
+**Sujal Kumar Sinha** - *Frontend Developer & AI Integration*
+- Led the AI chatbot development and Gemini API integration
+- Implemented the fertility prediction algorithms and AI services
 - Implemented the interactive calendar, data visualization, and user experience components
-- 🔗 [GitHub](https://github.com/sarahchen) | [LinkedIn](https://linkedin.com/in/sarahchen)
+- 🔗 [GitHub](https://github.com/SujalSinha12012005) | [LinkedIn](https://linkedin.com/in/)
 
 
 ## License
