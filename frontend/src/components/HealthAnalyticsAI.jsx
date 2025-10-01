@@ -66,9 +66,6 @@ const HealthAnalyticsAI = ({ userData, wearableData }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-2xl font-semibold text-pink-600">
-          AI-Powered Health Analytics
-        </h3>
         <div className="flex items-center gap-3">
           {isLoading && (
             <div className="flex items-center">
@@ -79,7 +76,7 @@ const HealthAnalyticsAI = ({ userData, wearableData }) => {
           <button
             onClick={generateAIAnalytics}
             disabled={isLoading || !userData || Object.keys(userData).length === 0}
-            className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+            className="px-4 py-2 bg-pink-600 text-black rounded-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
           >
             {isLoading ? 'Analyzing...' : 'Start AI Analysis'}
           </button>
